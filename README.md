@@ -21,12 +21,12 @@ Simple static web page to extract SQL query located in String
 
 to
 
-'''
+
  select
     empName,
     empNo
  from emp
-'''
+
 
 # Purpose
 > * The Web application I manage is an old system. So lots of SQL queries are inserted into java String variable.
