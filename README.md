@@ -3,20 +3,20 @@ Simple static web page to extract SQL query located in String
 
 
 <hr>
-## Manual
+# Manual
 > 1. Copy the whole String.
 > 2. Paste it into the textbox of SQLExtractor
 > 3. Press Enter
 
 
 <hr>
-## Detail
+# Detail
 > * Extractor can ignore both '//'comments and '/* */' comments
 > * If you want to finish line, Use a key binding of "Shift + Enter"
 
 
 <hr>
-## Example
+#Example
 ```
  String sql = " select                       "
             + "   empName,                   "
@@ -36,10 +36,10 @@ to
 
 
 <hr>
-## Purpose
+# Purpose
 The Web application I manage is an old system. So lots of SQL queries are inserted into java String variable.
 
 
 <hr>
-## Contact
+# Contact
 neta6603@naver.com
