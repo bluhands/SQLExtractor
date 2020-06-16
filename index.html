@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<meta charset="utf-8">
+<html>
+<head>
+	<title>SQLExtractor</title>
+	<script>
+		function transform(){
+			var textArea = document.getElementById("TextArea");
+			var contents = textArea.value.split('\n');
+			var isSQL = false;
+			var isComment = false;
+			var result = "";
+			for(var i = 0; i < contents.length; i++){
+				var content = contents[i];
+				var buffer = "";
+				var isLineComment = false;
+				for(var j = 0; j < content.length; j ++){
+				// 한줄 주석일경우 한줄 그냥 다 버리기
+					var ch = content[j];
+					if(isComment){
+						if(0 < j){
+							if(ch == '/' && content[j - 1] == '*'){
+								isComment = !isComment;
+							}
+						}
+						continue;
+					}
+					if(isLineComment){
+						continue;
+					}
+					if(ch == '/' && j < content.length - 1){
+						if(content[j + 1] == '/'){
+							isLineComment = true;
+						}
+						else if(content[j + 1] == '*'){
+							isComment = true;
+						}
+					}
+					else if(ch == '"'){  //쌍따옴표일때
+						isSQL = !isSQL;
+					}
+					// 개행문자 제거
+					else if(j < content.length - 1 && ch == '\\' && content[j + 1] == 'n'){
+						continue;
+					}
+					else if(j > 0 &&ch == 'n' && content[j - 1] == '\\'){
+						continue;
+					}
+					else{
+						if(isSQL){
+							buffer += ch;
+						}
+					}
+				}
+				if(!isComment && !isLineComment)
+					result += buffer + '\n';
+			}
+			textArea.value = result;
+		}
+	
+		function keyD(){
+			var key = window.event;
+			
+			if(key.keyCode == 13){
+				if(!key.shiftKey){
+					transform();
+				}
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		
+	</script>
+</head>
+<body>
+<form id='SQLForm'>
+	<input type="button" id="TransformBtn" onclick="transform()" value="변환" style="display: block"/></br>
+	<textarea name="sql" id="TextArea" cols="150" rows = "40" wrap="off" onkeypress="keyD();"></textarea>
+</form>
+</body>
+</html>
