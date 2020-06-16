@@ -36,7 +36,7 @@ to
 
 
 <hr>
-# Purpose
+# Purpose 
 The Web application I manage is an old system. So lots of SQL queries are inserted into java String variable.
 
 
